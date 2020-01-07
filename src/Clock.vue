@@ -3,26 +3,32 @@
     <div id="clockMain" :style="main">
       <Display/>
       <Info/>
-      <p v-if="!this.$store.state.display.show && !this.$store.state.info.show">hi there, im really bored right now, ummmmmmmmmmmmmmmmmmmmmmm so you need to display either one of these. soooooooooooooooooooooooooooooooooooooo please make at least one visible. k thx bai</p>
+      <p v-if="!display.show && !info.show">hi there, im really bored right now, ummmmmmmmmmmmmmmmmmmmmmm so you need to display either one of these. soooooooooooooooooooooooooooooooooooooo please make at least one visible. k thx bai</p>
     </div>
     <Buttons/>
+    <Settings/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Display from './components/Display.vue'
 import Info from './components/Info.vue'
 import Buttons from './components/Buttons.vue'
+import Settings from './components/Settings.vue'
 
 @Component({
   components: {
     Display,
     Info,
-    Buttons
+    Buttons,
+    Settings
   },
-  computed: mapGetters(['body', 'main'])
+  computed: {
+    ...mapGetters(['body', 'main', 'colorBackground']),
+    ...mapState(['display', 'info'])
+  }
 })
 export default class Clock extends Vue {}
 </script>

@@ -1,37 +1,31 @@
 <template>
   <div id="clockButtons">
-    <button id="clockNotification" :style="background" @click="flip">
-      <i class="material-icons" :style="text">{{notificationImage}}</i>
+    <button id="clockNotification" :style="colorBackground" @click="toggleNotifications">
+      <i class="material-icons">{{notificationImage}}</i>
     </button>
-    <button id="clockSettings" :style="background">
-      <i class="material-icons" :style="text">settings</i>
+    <button id="clockSettings" :style="colorBackground" @click="toggleSettings">
+      <i class="material-icons">settings</i>
     </button>
   </div>  
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 
 @Component({
-  computed: {...mapMutations(['flipNotifications'])}
+  computed: {
+    ...mapGetters(['colorBackground']),
+    ...mapState(['notifications'])
+  },
+  methods: mapMutations(['toggleSettings', 'toggleNotifications'])
 })
 
 export default class Buttons extends Vue {  
-  flip():void {
-    this.$store.commit('flipNotifications')
-  }
+  notifications!: boolean
 
-  get background():String {
-    return `background: ${this.$store.state.textBackground}aa`
-  }
-
-  get text():String {
-    return `color: ${this.$store.state.textColor}`
-  }
-
-  get notificationImage():String {
-    return this.$store.state.notifications ? 'notifications_active' : 'notifications_off'
+  get notificationImage():string {
+    return this.notifications ? 'notifications_active' : 'notifications_off'
   }
 }
 </script>

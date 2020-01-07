@@ -24,7 +24,12 @@ export default new Vuex.Store({
     },
     notifications: false,
     textColor: "#fff",
-    textBackground: "#000000"
+    textBackground: "#000000",
+    // settings: false,
+    settings: {
+      show: false,
+      current: "display" //either main or colors or classes, main being show info/display, colors being change color/background, classes being where you put in your classes
+    }
   },
   getters: {
     body: state => `
@@ -37,12 +42,15 @@ export default new Vuex.Store({
     `,
     main: state => `
       grid-template-rows: ${!(state.display.show && state.info.show) ? "1fr" : "2fr 1fr"}
-    `
+    `,
+    colorBackground: ({textBackground, textColor}) => `color: ${textColor};background: ${textBackground}80;`,
   },
   mutations: {
     changeBackgroundColors: ({background}, payload: string[]) => background.backgroundColors = payload,
     changeBackgroundDirection: ({background}, payload: number) => background.direction = payload,
-    flipNotifications: (state) => state.notifications = !state.notifications,
+    toggleNotifications: (state) => state.notifications = !state.notifications,
+    toggleSettings: (state) => state.settings.show = !state.settings.show,
+    changeSettingsCurrent: (state, type: string) => state.settings.current = type
   },
   actions: {
 
