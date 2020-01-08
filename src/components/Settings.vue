@@ -13,7 +13,14 @@
          <div id="clockSettingsSettingInner">
             <div id="clockSettingsSettingInnerHeader">{{settings.current.charAt(0).toUpperCase() + settings.current.slice(1)}}</div>
             <div id="clockSettingsSettingDisplay" v-if="settings.current == 'display'" :style="'text-align: left'">
-              <div>Show clock: <button>{{}}</button></div>
+              <div>Show clock: <ToggleButton :isOn="display.show" @clicked="toggleSomething('display.show')"/></div>
+              <br>
+              <div>Show information: <ToggleButton :isOn="info.show" @clicked="toggleSomething('info.show')"/></div>
+              <div v-if="info.show">
+                  <div>Show time left: <ToggleButton :isOn="info.options.timeLeft" @clicked="toggleSomething('info.options.timeLeft')"/></div>
+                  <div>Show current period: <ToggleButton :isOn="info.options.currentPeriod" @clicked="toggleSomething('info.options.currentPeriod')"/></div>
+                  <div>Show next period: <ToggleButton :isOn="info.options.nextPeriod" @clicked="toggleSomething('info.options.nextPeriod')"/></div>
+              </div>
             </div>
          </div>
        </div>
@@ -25,13 +32,17 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import ToggleButton from './ToggleButton.vue'
 
 @Component({
   computed: {
-    ...mapState(['settings', 'textBackground', 'settings']),
+    ...mapState(['settings', 'textBackground', 'display', 'info']),
     ...mapGetters(['colorBackground'])
   },
-  methods: mapMutations(['toggleSettings', 'changeSettingsCurrent'])
+  methods: mapMutations(['toggleSettings', 'changeSettingsCurrent', 'toggleSomething']),
+  components: {
+    ToggleButton
+  }
 })
 
 export default class Settings extends Vue {
@@ -39,6 +50,8 @@ export default class Settings extends Vue {
   backgroundOpacity(opacity: string): string {
     return this.textBackground + opacity
   }
+
+
 }
 </script>
 
@@ -69,6 +82,12 @@ export default class Settings extends Vue {
   grid-template-columns: 1fr 3fr;
 }
 
+@media (min-width: 890px) {
+  #clockSettingsMain {
+    width: max(667px, 75vmin);
+  }
+}
+
 @media (max-width: 766px) and (min-width: 576px) {
   #clockSettingsMain {
     width: 575px;
@@ -77,7 +96,8 @@ export default class Settings extends Vue {
 
 @media (max-width: 575px) {
   #clockSettingsMain {
-    width: 100vw;
+    width: 100vmin;
+    height: min(100vmin, 60vh);
   }
 }
 
@@ -109,16 +129,23 @@ li:active {
 
 #clockSettingsSetting {
   border-radius: 0px 40px 40px 0px;
+  font-size: 1.5rem;
 }
 
+@media (max-width: 540px) {
+  #clockSettingsSetting {
+    font-size: calc(100vw / 26);
+  }
+}
 #clockSettingsSettingInner {
   margin: 40px 0px;
-  padding: 0px 30px;
+  padding: 0px 40px;
   height: calc(100% - 80px);
-  width: calc(100% - 60px);
+  width: calc(100% - 80px);
   /* background: white; */
   display: grid;
   grid-template-rows: calc(42px + 1rem) 1fr;
+  grid-row-gap: 15px;
 }
 
 #clockSettingsSettingInnerHeader {

@@ -60,7 +60,7 @@ body {
 
   place-self: center;
   background: black;
-  opacity: .4;
+  opacity: .5;
 
   display: grid;
   grid-template-rows: 2fr 1fr;
@@ -77,4 +77,23 @@ body {
     width: 100vw;
   }
 }
+
+@media (max-height: 725px) {
+  #clockMain {
+    height: 50vh;
+  }
+}
+
+@media (max-height: 595px) {
+  #clockMain {
+    height: 47vh;
+  }
+}
+
+@media (max-height: 350px) {
+  #clockMain {
+    height: 100vh;
+  }
+}
+
 </style>

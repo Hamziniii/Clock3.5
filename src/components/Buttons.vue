@@ -56,4 +56,11 @@ button:hover {
 button:active {
   transform: scale(.9);
 }
+
+@media (max-height: 350px) {
+  button {
+    display: none;
+  }
+}
+
 </style> 

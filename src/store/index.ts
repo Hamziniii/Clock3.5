@@ -6,8 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     background: {
+      //backgroundColors: ["#89f7fe", "#66a6ff"],      
       backgroundColors: ["#F27121", "#E94057", "#8A2387"],
-      direction: 45
+      direction: 135
     },
     display: {
       show: true,
@@ -41,7 +42,7 @@ export default new Vuex.Store({
       });
     `,
     main: state => `
-      grid-template-rows: ${!(state.display.show && state.info.show) ? "1fr" : "2fr 1fr"}
+      grid-template-rows: ${!(state.display.show && state.info.show) ? "1fr" : "2fr 1fr"};
     `,
     colorBackground: ({textBackground, textColor}) => `color: ${textColor};background: ${textBackground}80;`,
   },
@@ -50,7 +51,8 @@ export default new Vuex.Store({
     changeBackgroundDirection: ({background}, payload: number) => background.direction = payload,
     toggleNotifications: (state) => state.notifications = !state.notifications,
     toggleSettings: (state) => state.settings.show = !state.settings.show,
-    changeSettingsCurrent: (state, type: string) => state.settings.current = type
+    changeSettingsCurrent: (state, type: string) => state.settings.current = type,
+    toggleSomething: (state, what: string) => eval(`state.${what} = !state.${what}`)
   },
   actions: {
 
