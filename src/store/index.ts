@@ -6,13 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     background: {
-      //backgroundColors: ["#89f7fe", "#66a6ff"],      
+      // backgroundColors: ["#89f7fe", "#66a6ff"],      
       backgroundColors: ["#F27121", "#E94057", "#8A2387"],
       direction: 135
     },
     display: {
       show: true,
-      type: "digital"
+      current: 0,
+      types: ["Digital", "Analog"]
     },
     info: {
       show: true,
@@ -52,7 +53,8 @@ export default new Vuex.Store({
     toggleNotifications: (state) => state.notifications = !state.notifications,
     toggleSettings: (state) => state.settings.show = !state.settings.show,
     changeSettingsCurrent: (state, type: string) => state.settings.current = type,
-    toggleSomething: (state, what: string) => eval(`state.${what} = !state.${what}`)
+    toggleSomething: (state, what: string) => eval(`state.${what} = !state.${what}`),
+    changeDisplayType: (state, c) => state.display.current = c
   },
   actions: {
 

@@ -14,6 +14,9 @@
             <div id="clockSettingsSettingInnerHeader">{{settings.current.charAt(0).toUpperCase() + settings.current.slice(1)}}</div>
             <div id="clockSettingsSettingDisplay" v-if="settings.current == 'display'" :style="'text-align: left'">
               <div>Show clock: <ToggleButton :isOn="display.show" @clicked="toggleSomething('display.show')"/></div>
+              <div v-if="display.show">
+                Clock type: <Dropdown :current="display.current" :types="display.types" @clicked="changeDisplayType"/>
+              </div>
               <br>
               <div>Show information: <ToggleButton :isOn="info.show" @clicked="toggleSomething('info.show')"/></div>
               <div v-if="info.show">
@@ -33,15 +36,17 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import ToggleButton from './ToggleButton.vue'
+import Dropdown from './Dropdown.vue'
 
 @Component({
   computed: {
     ...mapState(['settings', 'textBackground', 'display', 'info']),
     ...mapGetters(['colorBackground'])
   },
-  methods: mapMutations(['toggleSettings', 'changeSettingsCurrent', 'toggleSomething']),
+  methods: mapMutations(['toggleSettings', 'changeSettingsCurrent', 'toggleSomething', 'changeDisplayType']),
   components: {
-    ToggleButton
+    ToggleButton,
+    Dropdown
   }
 })
 

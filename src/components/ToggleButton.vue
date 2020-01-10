@@ -12,7 +12,7 @@ import { mapState } from 'vuex'
 })
 
 export default class ToggleButton extends Vue {
-  @Prop([Boolean]) readonly isOn: boolean; 
+  @Prop([Boolean]) readonly isOn!: boolean; 
 
   background!: any
 
