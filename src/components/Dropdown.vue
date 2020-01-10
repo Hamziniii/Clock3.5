@@ -49,7 +49,7 @@ button {
 }
 
 button:hover {
-  opacity: .8;
+  opacity: .9;
 }
 
 .clockDropdown {

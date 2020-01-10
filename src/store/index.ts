@@ -1,14 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
+
+const vuexLocal:any = new VuexPersistence({
+  storage: window.localStorage
+})
 
 export default new Vuex.Store({
   state: {
     background: {
-      // backgroundColors: ["#89f7fe", "#66a6ff"],      
-      backgroundColors: ["#F27121", "#E94057", "#8A2387"],
+      // backgroundColors: ["#89f7fe", "#66a6ff"],      //Blue
+      // backgroundColors: ["#F27121", "#E94057", "#8A2387"], // red, orange, purple
+      backgroundColors: ["#42275a", "#734b6d"], // blue, purple
       direction: 135
+      
     },
     display: {
       show: true,
@@ -26,6 +33,7 @@ export default new Vuex.Store({
     },
     notifications: false,
     textColor: "#fff",
+    textSecondaryColor: "#000000",
     textBackground: "#000000",
     // settings: false,
     settings: {
@@ -60,5 +68,6 @@ export default new Vuex.Store({
 
   },
   modules: {
-  }
+  },
+  // plugins: [vuexLocal.plugin] // TOGGLE ONCE DONE WITH DEV
 })

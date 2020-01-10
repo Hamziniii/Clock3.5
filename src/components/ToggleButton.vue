@@ -38,4 +38,8 @@ button {
   font-size: calc(1.3em - 10px);
   margin: 3px;
 }
+
+button:hover {
+  opacity: .9;
+}
 </style>
